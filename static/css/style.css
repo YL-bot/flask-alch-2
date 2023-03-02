@@ -1,0 +1,33 @@
+h4{
+    color: rgb(150, 150, 150);
+    margin-left: 40px;
+    margin-right: 800px;
+  }
+  
+  h2, h3{
+    display: table;
+    margin: 0 auto;
+  }
+  
+  h5{
+  margin-left: 5%;
+  }
+  
+  small{
+    margin-left: 600px;
+  }
+  
+  table {
+    margin: 100px;
+    vertical-align: middle;
+  }
+  
+  form {
+    margin-left: 40px;
+    margin-right: 800px;
+  }
+  
+  h1 {
+    color: #333333;
+    margin-left: 40px;
+  }
