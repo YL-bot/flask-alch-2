@@ -128,8 +128,6 @@ def addjob():
             jobs.start_date = form.start_date.data
             jobs.end_date = form.end_date.data
             
-            print(form.id.data, form.title.data, form.work_size.data, form.collaborators.data, form.done.data)
-            
             db_session.add(jobs)
             db_session.commit()
 
