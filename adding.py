@@ -15,6 +15,7 @@ user.speciality = "research engineer"
 user.address = "module_1"
 user.email = "scott_chief@mars.org"
 user.hashed_password = "cap"
+user.set_password("cap")
 
 db_sess.add(user)
 
@@ -28,6 +29,7 @@ user.speciality = "doctor"
 user.address = "module_1"
 user.email = "tom_rf@mars.org"
 user.hashed_password = "doc"
+user.set_password("doc")
 
 db_sess.add(user)
 
@@ -41,6 +43,7 @@ user.speciality = "research engineer"
 user.address = "module_2"
 user.email = "jonesBen@mars.org"
 user.hashed_password = "old"
+user.set_password("old")
 
 db_sess.add(user)
 
@@ -54,6 +57,7 @@ user.speciality = "research engineer"
 user.address = "module_1"
 user.email = "cooker_mat@mars.org"
 user.hashed_password = "cooker"
+user.set_password("cooker")
 
 db_sess.add(user)
 

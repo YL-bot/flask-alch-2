@@ -38,4 +38,4 @@ class User(SqlAlchemyBase, UserMixin):
 
 
     def __repr__(self):
-        return '<User{}>'.format(self.username)
+        return '<User{}>'.format(self.name)
