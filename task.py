@@ -57,6 +57,23 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Войти')
 
 
+class RegisterForm(FlaskForm):
+    email = EmailField('Email', validators=[DataRequired()])
+    
+    password = PasswordField('Password', validators=[DataRequired()])
+    password_again = PasswordField('Password again', validators=[DataRequired()])
+    
+    name = StringField('Name', validators=[DataRequired()])
+    surname = StringField('Surname', validators=[DataRequired()])
+
+    age = IntegerField('Age')
+    position = StringField('Position')
+    speciality = StringField('Speciality')
+    address = StringField('Address')
+    
+    submit = SubmitField('Register')
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return db_session.query(User).get(user_id)
@@ -78,7 +95,7 @@ def login():
         user = db_session.query(User).filter(User.email == form.email.data).first()
 
         if user and user.check_password(form.password.data):
-            account = user.name
+            account = f'{user.name} {user.surname}'
             login_user(user, remember=form.remember_me.data)
             return redirect("/works")
         
@@ -87,9 +104,50 @@ def login():
     return render_template('login.html', title='Авторизация', form=form, account='')
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def reqister():
+    global account
+    
+    account = ''
+    form = RegisterForm()
+    
+    
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template('registretion.html', title='Register form', form=form, message="Пароли не совпадают, перевведите.")
+        
+        if db_session.query(User).filter(User.email == form.email.data).first():
+            return render_template('registretion.html', title='Register form', form=form, message="Почта уже используется")
+        
+        #print(form.name.data, form.email.data, form.surname.data, form.age.data, form.position.data, form.address.data, form.speciality.data, form.password.data)
+        
+        user = User(
+            name=form.name.data,
+            email=form.email.data,
+            surname=form.surname.data,
+            age=form.age.data,
+            position=form.position.data,
+            address=form.address.data,
+            speciality=form.speciality.data
+        )
+        
+        user.set_password(form.password.data)
+        
+        db_session.add(user)
+        db_session.commit()
+        
+        return redirect('/login')
+    
+    return render_template('registretion.html', title='Register form', form=form, account='')
+
+
 @app.route('/logout')
 @login_required
 def logout():
+    global account
+    
+    account = ''
+    
     logout_user()
     return redirect("/")
 
