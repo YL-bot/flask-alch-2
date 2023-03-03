@@ -18,6 +18,8 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+account = ''
+
 
 def adding_for_test():
     user = User()
@@ -49,23 +51,26 @@ def load_user(user_id):
 
 @app.route("/")
 def start():
-    return 'ne smotrite, tut nema'
+    global account
+    return render_template('base.html', account=account)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    global account
     form = LoginForm()
 
     if form.validate_on_submit():
         user = db_session.query(User).filter(User.email == form.email.data).first()
 
         if user and user.check_password(form.password.data):
+            account = user.name
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
         
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     
-    return render_template('login.html', title='Авторизация', form=form)
+    return render_template('login.html', title='Авторизация', form=form, account='')
 
 
 @app.route('/logout')

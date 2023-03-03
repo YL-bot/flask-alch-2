@@ -11,9 +11,15 @@
 </head>
 <body>
     <div class="alert alert-dark" role="alert">
-        <h1>Миссия Колонизация Марса
-            <small class="text-muted">mars one</small>            
-        </h1>
+        {% if account != '' %}
+            <h1>Миссия Колонизация Марса
+                <small class="text-muted">mars one</small><small class="text-muted">{{account}}</small>             
+            </h1>
+        {% else %}
+            <h1>Миссия Колонизация Марса
+                <small class="text-muted">mars one</small>            
+            </h1>
+        {% endif %}
     </div>
 <h4>И на Марсе будут яблони цвести!</h4>
 {% block content %}{% endblock %}
