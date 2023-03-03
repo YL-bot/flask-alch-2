@@ -5,18 +5,18 @@
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p class="forms">
-            {{ form.id.label }}<br>
-            {{ form.id(class="form-control", type="id") }}<br>
-            {% for error in form.id.errors %}
+            {{ form.title.label }}<br>
+            {{ form.title(class="form-control") }}<br>
+            {% for error in form.title.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>
             {% endfor %}
         </p>
         <p class="forms">
-            {{ form.title.label }}<br>
-            {{ form.title(class="form-control") }}<br>
-            {% for error in form.title.errors %}
+            {{ form.id.label }}<br>
+            {{ form.id(class="form-control", type="id") }}<br>
+            {% for error in form.id.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>

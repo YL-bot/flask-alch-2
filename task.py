@@ -41,12 +41,19 @@ def adding_for_test():
 
 class JobForm(FlaskForm):
     id = IntegerField('Team-leader-id', validators=[DataRequired()])
+    
     title = StringField('Title of job', validators=[DataRequired()])   
+    
     work_size = IntegerField('Work size (in hours)', validators=[DataRequired()])
+    
     collaborators = StringField("collaborators' ID using ,", validators=[DataRequired()])
-    start_date = DateTimeField('Start date', format='%Y-%m-%d %H:%M:%S', default=datetime.datetime(year=2023, month=1, day=1, hour=1, minute=0, second=0))
+    
+    start_date = DateTimeField('Start date', format='%Y-%m-%d %H:%M:%S', default=datetime.datetime.now)
+    
     end_date = DateTimeField('End date', format='%Y-%m-%d %H:%M:%S', default=datetime.datetime(year=2030, month=1, day=1, hour=1, minute=0, second=0))
+    
     done = BooleanField('Is finished?')
+    
     submit = SubmitField('Submit')
 
 
@@ -79,13 +86,12 @@ def load_user(user_id):
     return db_session.query(User).get(user_id)
 
 
-@app.route("/start")
+@app.route("/")
 def start():
     global account
     return render_template('base.html', account=account)
 
 
-@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     global account
@@ -191,9 +197,9 @@ def addjob():
 
             return redirect("/works")
         
-        return render_template('job_add.html', message="WRONG Email Adress", form=form, account=account)
+        return render_template('job_add.html', message="Smth is wrong", form=form, account=account)
         
-    return render_template('job_add.html', title='Adding JOB', form=form, account=account)
+    return render_template('job_add.html', title='Adding work', form=form, account=account)
 
 
 if __name__ == '__main__':
